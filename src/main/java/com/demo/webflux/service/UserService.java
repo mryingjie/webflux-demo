@@ -2,8 +2,10 @@ package com.demo.webflux.service;
 
 import com.demo.webflux.bean.User;
 import com.demo.webflux.repository.UserRepository;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import reactor.core.Disposable;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -26,6 +28,7 @@ public class UserService {
      */
     public Mono<User> save(User user) {
         Mono<User> byUsername = userRepository.findByUsername(user.getUsername());
+
         return userRepository.save(user)
                 .onErrorResume(e ->     // 1
                         userRepository.findByUsername(user.getUsername())   // 2
@@ -44,7 +47,10 @@ public class UserService {
     }
 
     public Flux<User> findAll() {
-        return userRepository.findAll();
+        val all = userRepository.findAll();
+        Disposable subscribe = all.subscribe(System.out::println);
+        return all;
     }
 
 }
+

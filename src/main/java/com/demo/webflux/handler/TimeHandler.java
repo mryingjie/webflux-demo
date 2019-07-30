@@ -35,12 +35,17 @@ public class TimeHandler {
 
     public Mono<ServerResponse> sendTimePerSec(ServerRequest serverRequest) {
 
-        return ok().contentType(MediaType.TEXT_EVENT_STREAM).body(Flux.interval(Duration.ofSeconds(1)).map(l -> {
-                    String format = new SimpleDateFormat("HH:mm:ss").format(new Date());
-
-                    return format;
-                }),
-                String.class);
+        return ok()
+                .contentType(MediaType.TEXT_EVENT_STREAM)
+                .body(
+                        Flux.interval(Duration.ofSeconds(1))
+                                .map(
+                                        l -> {
+                                            String format = new SimpleDateFormat("HH:mm:ss").format(new Date());
+                                            return format;
+                                        }
+                                ),
+                        String.class);
     }
 
 }

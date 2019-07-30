@@ -2,11 +2,11 @@ package com.demo.webflux.bean;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Date;
 
 /**
  * @author ZhengYingjie
@@ -15,6 +15,7 @@ import java.util.Date;
  */
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Document
 public class User {
 
@@ -24,5 +25,5 @@ public class User {
     private String username;
     private String name;
     private String phone;
-    private Date birthday;
+    private String birthday;
 }

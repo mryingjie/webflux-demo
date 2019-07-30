@@ -29,6 +29,7 @@ public class CityWebFluxReactiveController {
     public Mono<City> findCityById(@PathVariable("id") Long id) {
         String key = "city:" + id;
         ReactiveValueOperations<String, City> operations = reactiveRedisTemplate.opsForValue();
+
         Mono<City> city = operations.get(key);
         return city;
     }
